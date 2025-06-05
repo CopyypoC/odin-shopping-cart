@@ -106,5 +106,13 @@ describe("Navbar routes", () => {
     expect(screen.getByTestId("CartMock")).toBeInTheDocument();
   });
 
-  it("renders error page on bad url", () => {});
+  it("renders ErrorPage on bad url", () => {
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/error"],
+    });
+
+    render(<RouterProvider router={router} />);
+
+    expect(screen.getByTestId("ErrorPage")).toBeInTheDocument();
+  });
 });
