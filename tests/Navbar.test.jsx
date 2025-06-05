@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { Navbar } from "../src/components/Navbar/Navbar.jsx";
 import { routes } from "../src/routes/routes.jsx";
+import userEvent from "@testing-library/user-event";
 
 describe("Navbar", () => {
   it("renders Home, Shop, and Cart link text", () => {
@@ -63,35 +64,44 @@ describe("Navbar routes", () => {
     Cart: () => <div data-testid="CartMock"></div>,
   }));
 
-  it("renders Navbar and Home on /", () => {
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/"],
-    });
-
-    render(<RouterProvider router={router} />);
-
-    expect(screen.getByTestId("Navbar")).toBeInTheDocument();
-    expect(screen.getByTestId("HomeMock")).toBeInTheDocument();
-  });
-
-  it("renders Navbar and Shop on /shop", () => {
+  it("renders Navbar and Home on clicking Home link", async () => {
+    const user = userEvent.setup();
     const router = createMemoryRouter(routes, {
       initialEntries: ["/shop"],
     });
 
     render(<RouterProvider router={router} />);
+    const homeLink = screen.getByRole("link", { name: /home/i });
 
+    await user.click(homeLink);
+    expect(screen.getByTestId("Navbar")).toBeInTheDocument();
+    expect(screen.getByTestId("HomeMock")).toBeInTheDocument();
+  });
+
+  it("renders Navbar and Shop on clicking Shop link", async () => {
+    const user = userEvent.setup();
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/"],
+    });
+
+    render(<RouterProvider router={router} />);
+    const shopLink = screen.getByRole("link", { name: /shop/i });
+
+    await user.click(shopLink);
     expect(screen.getByTestId("Navbar")).toBeInTheDocument();
     expect(screen.getByTestId("ShopMock")).toBeInTheDocument();
   });
 
-  it("renders Navbar and Cart on /cart", () => {
+  it("renders Navbar and Cart on clicking Cart link", async () => {
+    const user = userEvent.setup();
     const router = createMemoryRouter(routes, {
-      initialEntries: ["/cart"],
+      initialEntries: ["/"],
     });
 
     render(<RouterProvider router={router} />);
+    const cartLink = screen.getByRole("link", { name: /cart/i });
 
+    await user.click(cartLink);
     expect(screen.getByTestId("Navbar")).toBeInTheDocument();
     expect(screen.getByTestId("CartMock")).toBeInTheDocument();
   });
