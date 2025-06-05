@@ -1,14 +1,17 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Navbar > snapshot 1`] = `
+exports[`Navbar > matches snapshot 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <nav>
+      <nav
+        data-testid="Navbar"
+      >
         <ul>
           <li>
             <a
+              data-discover="true"
               href="/"
             >
               Home
@@ -16,6 +19,7 @@ exports[`Navbar > snapshot 1`] = `
           </li>
           <li>
             <a
+              data-discover="true"
               href="/shop"
             >
               Shop
@@ -23,6 +27,7 @@ exports[`Navbar > snapshot 1`] = `
           </li>
           <li>
             <a
+              data-discover="true"
               href="/cart"
             >
               Cart
@@ -33,10 +38,13 @@ exports[`Navbar > snapshot 1`] = `
     </div>
   </body>,
   "container": <div>
-    <nav>
+    <nav
+      data-testid="Navbar"
+    >
       <ul>
         <li>
           <a
+            data-discover="true"
             href="/"
           >
             Home
@@ -44,6 +52,7 @@ exports[`Navbar > snapshot 1`] = `
         </li>
         <li>
           <a
+            data-discover="true"
             href="/shop"
           >
             Shop
@@ -51,6 +60,7 @@ exports[`Navbar > snapshot 1`] = `
         </li>
         <li>
           <a
+            data-discover="true"
             href="/cart"
           >
             Cart
