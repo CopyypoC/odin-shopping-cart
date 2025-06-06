@@ -1,0 +1,23 @@
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  width: 70vw;
+}
+
+.hero {
+  margin-top: 3rem;
+  width: 70vw;
+  max-height: 70vh;
+  object-fit: cover;
+  box-shadow: var(--box-shadow);
+  border-radius: 4px;
+}
+
+.heroText {
+  margin: 2rem 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--font-clr);
+}

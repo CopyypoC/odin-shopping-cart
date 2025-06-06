@@ -6,7 +6,9 @@ function App() {
   return (
     <>
       <Navbar />
-      <Outlet className={styles.outlet} />
+      <main>
+        <Outlet className={styles.outlet} />
+      </main>
     </>
   );
 }
