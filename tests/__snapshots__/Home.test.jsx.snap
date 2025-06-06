@@ -1,97 +1,31 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Navbar > matches snapshot 1`] = `
+exports[`Home component > matches snapshot 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <nav
-        class="_navBar_278c00"
-        data-testid="Navbar"
-      >
-        <ul
-          class="_navContainer_278c00"
-        >
-          <div
-            class="_navLeft_278c00"
-          >
-            <li>
-              <a
-                class="_link_278c00"
-                data-discover="true"
-                href="/"
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a
-                class="_link_278c00"
-                data-discover="true"
-                href="/shop"
-              >
-                Shop
-              </a>
-            </li>
-          </div>
-          <li
-            class="_cart_278c00"
-          >
-            <a
-              class="_link_278c00"
-              data-discover="true"
-              href="/cart"
-            >
-              Cart
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <div>
+        <img
+          alt="Two fashionable purses"
+          src="/public/hero.jpg"
+        />
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat aliquid nesciunt culpa qui optio quis voluptatibus eveniet iure ut vitae, quo earum blanditiis unde adipisci. Doloremque, fugiat libero veniam consequuntur ut consequatur velit. Aliquam, magnam maiores velit incidunt, minima ratione magni quas ipsam eaque consequatur cumque laboriosam perferendis nulla!
+        </p>
+      </div>
     </div>
   </body>,
   "container": <div>
-    <nav
-      class="_navBar_278c00"
-      data-testid="Navbar"
-    >
-      <ul
-        class="_navContainer_278c00"
-      >
-        <div
-          class="_navLeft_278c00"
-        >
-          <li>
-            <a
-              class="_link_278c00"
-              data-discover="true"
-              href="/"
-            >
-              Home
-            </a>
-          </li>
-          <li>
-            <a
-              class="_link_278c00"
-              data-discover="true"
-              href="/shop"
-            >
-              Shop
-            </a>
-          </li>
-        </div>
-        <li
-          class="_cart_278c00"
-        >
-          <a
-            class="_link_278c00"
-            data-discover="true"
-            href="/cart"
-          >
-            Cart
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <div>
+      <img
+        alt="Two fashionable purses"
+        src="/public/hero.jpg"
+      />
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat aliquid nesciunt culpa qui optio quis voluptatibus eveniet iure ut vitae, quo earum blanditiis unde adipisci. Doloremque, fugiat libero veniam consequuntur ut consequatur velit. Aliquam, magnam maiores velit incidunt, minima ratione magni quas ipsam eaque consequatur cumque laboriosam perferendis nulla!
+      </p>
+    </div>
   </div>,
   "debug": [Function],
   "findAllByAltText": [Function],

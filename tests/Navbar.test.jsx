@@ -108,7 +108,7 @@ describe("Navbar routes", () => {
 
   it("renders ErrorPage on bad url", () => {
     const router = createMemoryRouter(routes, {
-      initialEntries: ["/error"],
+      initialEntries: ["/error-test-url"],
     });
 
     render(<RouterProvider router={router} />);
