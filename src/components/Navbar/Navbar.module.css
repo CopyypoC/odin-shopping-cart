@@ -1,0 +1,27 @@
+.navBar {
+  background-color: var(--secondary-clr);
+  border-bottom: 1px solid var(--accent-clr);
+}
+
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.navLeft {
+  display: flex;
+  gap: 1rem;
+  margin-left: 1rem;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--font-clr);
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.cart {
+  margin-right: 1rem;
+}
