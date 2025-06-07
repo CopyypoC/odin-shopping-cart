@@ -1,11 +1,13 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getProducts } from "../src/api/getProducts.js";
+import { render } from "@testing-library/react";
+import { Shop } from "../src/components/Shop/Shop.jsx";
 
 afterEach(() => {
   vi.clearAllMocks();
 });
 
-describe("Shop component", () => {
+describe("Shop products", () => {
   it("fetches product data successfully", async () => {
     const mockRes = {
       id: 1,
@@ -47,4 +49,8 @@ describe("Shop component", () => {
     await expect(getProducts()).rejects.toThrow("Fail");
     expect(fetch).toHaveBeenCalledTimes(1);
   });
+});
+
+describe("Shop component", () => {
+  it("renders a product after successful fetch", () => {});
 });
