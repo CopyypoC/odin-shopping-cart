@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import {
   createMemoryRouter,
@@ -8,6 +8,12 @@ import {
 import { Navbar } from "../src/components/Navbar/Navbar.jsx";
 import { routes } from "../src/routes/routes.jsx";
 import userEvent from "@testing-library/user-event";
+
+afterEach(() => {
+  vi.clearAllMocks();
+  vi.restoreAllMocks();
+  vi.resetModules();
+});
 
 describe("Navbar", () => {
   it("renders Home, Shop, and Cart link text", () => {
@@ -52,19 +58,10 @@ describe("Navbar", () => {
 });
 
 describe("Navbar routes", () => {
-  vi.mock("../src/components/Home/Home.jsx", () => ({
-    Home: () => <div data-testid="HomeMock"></div>,
-  }));
-
-  vi.mock("../src/components/Shop/Shop.jsx", () => ({
-    Shop: () => <div data-testid="ShopMock"></div>,
-  }));
-
-  vi.mock("../src/components/Cart/Cart.jsx", () => ({
-    Cart: () => <div data-testid="CartMock"></div>,
-  }));
-
   it("renders Navbar and Home on clicking Home link", async () => {
+    vi.mock("../src/components/Home/Home.jsx", () => ({
+      Home: () => <div data-testid="HomeMock"></div>,
+    }));
     const user = userEvent.setup();
     const router = createMemoryRouter(routes, {
       initialEntries: ["/shop"],
@@ -79,6 +76,9 @@ describe("Navbar routes", () => {
   });
 
   it("renders Navbar and Shop on clicking Shop link", async () => {
+    vi.mock("../src/components/Shop/Shop.jsx", () => ({
+      Shop: () => <div data-testid="ShopMock"></div>,
+    }));
     const user = userEvent.setup();
     const router = createMemoryRouter(routes, {
       initialEntries: ["/"],
@@ -93,6 +93,9 @@ describe("Navbar routes", () => {
   });
 
   it("renders Navbar and Cart on clicking Cart link", async () => {
+    vi.mock("../src/components/Cart/Cart.jsx", () => ({
+      Cart: () => <div data-testid="CartMock"></div>,
+    }));
     const user = userEvent.setup();
     const router = createMemoryRouter(routes, {
       initialEntries: ["/"],
@@ -107,6 +110,7 @@ describe("Navbar routes", () => {
   });
 
   it("renders ErrorPage on bad url", () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
     const router = createMemoryRouter(routes, {
       initialEntries: ["/error-test-url"],
     });

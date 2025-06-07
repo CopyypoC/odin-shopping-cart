@@ -5,6 +5,7 @@ import { Shop } from "../src/components/Shop/Shop.jsx";
 
 afterEach(() => {
   vi.clearAllMocks();
+  vi.restoreAllMocks();
 });
 
 describe("Shop products", () => {
@@ -32,6 +33,8 @@ describe("Shop products", () => {
   });
 
   it("fetch throws error on bad response", async () => {
+    vi.spyOn(console, "log").mockImplementation(() => {});
+
     globalThis.fetch = vi.fn(() =>
       Promise.resolve({
         ok: false,
@@ -44,6 +47,7 @@ describe("Shop products", () => {
   });
 
   it("fetch throws error on failure", async () => {
+    vi.spyOn(console, "log").mockImplementation(() => {});
     globalThis.fetch = vi.fn(() => Promise.reject("Fail"));
 
     await expect(getProducts()).rejects.toThrow("Fail");
