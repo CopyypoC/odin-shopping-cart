@@ -8,6 +8,7 @@ export async function getProducts() {
 
     return data;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 }
