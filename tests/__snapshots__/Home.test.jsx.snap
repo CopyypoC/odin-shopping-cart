@@ -5,25 +5,35 @@ exports[`Home component > matches snapshot 1`] = `
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <div>
+      <div
+        class="_homeContainer_345077"
+      >
         <img
           alt="Two fashionable purses"
+          class="_hero_345077"
           src="/public/hero.jpg"
         />
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat aliquid nesciunt culpa qui optio quis voluptatibus eveniet iure ut vitae, quo earum blanditiis unde adipisci. Doloremque, fugiat libero veniam consequuntur ut consequatur velit. Aliquam, magnam maiores velit incidunt, minima ratione magni quas ipsam eaque consequatur cumque laboriosam perferendis nulla!
+        <p
+          class="_heroText_345077"
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, in ab. Nostrum atque harum ducimus. Repudiandae, voluptate omnis. Possimus vero eveniet voluptates? Fugiat, debitis voluptate! Ut excepturi sunt mollitia sapiente eum. Sunt modi blanditiis delectus aliquam illum, voluptates totam iure nulla, temporibus quae maxime repudiandae, saepe quam? Assumenda, laboriosam voluptates. Soluta iure qui eos officia officiis corrupti facere, in suscipit eum eaque dolorem quas cum odit. Cumque doloremque quo, ea unde perspiciatis dignissimos placeat officia harum amet at ex accusantium!
         </p>
       </div>
     </div>
   </body>,
   "container": <div>
-    <div>
+    <div
+      class="_homeContainer_345077"
+    >
       <img
         alt="Two fashionable purses"
+        class="_hero_345077"
         src="/public/hero.jpg"
       />
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita fugiat aliquid nesciunt culpa qui optio quis voluptatibus eveniet iure ut vitae, quo earum blanditiis unde adipisci. Doloremque, fugiat libero veniam consequuntur ut consequatur velit. Aliquam, magnam maiores velit incidunt, minima ratione magni quas ipsam eaque consequatur cumque laboriosam perferendis nulla!
+      <p
+        class="_heroText_345077"
+      >
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas, in ab. Nostrum atque harum ducimus. Repudiandae, voluptate omnis. Possimus vero eveniet voluptates? Fugiat, debitis voluptate! Ut excepturi sunt mollitia sapiente eum. Sunt modi blanditiis delectus aliquam illum, voluptates totam iure nulla, temporibus quae maxime repudiandae, saepe quam? Assumenda, laboriosam voluptates. Soluta iure qui eos officia officiis corrupti facere, in suscipit eum eaque dolorem quas cum odit. Cumque doloremque quo, ea unde perspiciatis dignissimos placeat officia harum amet at ex accusantium!
       </p>
     </div>
   </div>,
