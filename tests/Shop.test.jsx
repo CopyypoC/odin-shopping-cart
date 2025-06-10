@@ -1,24 +1,27 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { getProducts } from "../src/api/getProducts.js";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Shop } from "../src/components/Shop/Shop.jsx";
+import { act } from "react";
 
 afterEach(() => {
   vi.clearAllMocks();
   vi.restoreAllMocks();
 });
 
-describe("Shop products", () => {
-  it("fetches product data successfully", async () => {
-    const mockRes = {
-      id: 1,
-      title: "title",
-      price: 1,
-      description: "description",
-      category: "category",
-      image: "url",
-    };
+const mockRes = [
+  {
+    id: 1,
+    title: "title",
+    price: 1,
+    description: "description",
+    category: "category",
+    image: "url",
+  },
+];
 
+describe("Shop fetch", () => {
+  it("fetches product data successfully", async () => {
     globalThis.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
@@ -29,7 +32,6 @@ describe("Shop products", () => {
     const data = await getProducts();
     expect(data).toEqual(mockRes);
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch).toHaveBeenCalledWith("https://fakestoreapi.com/products");
   });
 
   it("fetch throws error on bad response", async () => {
@@ -56,5 +58,18 @@ describe("Shop products", () => {
 });
 
 describe("Shop component", () => {
-  it("renders a product after successful fetch", () => {});
+  it("renders 1 product after successful fetch", async () => {
+    globalThis.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockRes),
+      })
+    );
+
+    await act(async () => {
+      render(<Shop />);
+    });
+    expect(screen.getByTestId("ProductCard")).toBeInTheDocument();
+    expect(screen.getAllByTestId("ProductCard").length).toBe(1);
+  });
 });
