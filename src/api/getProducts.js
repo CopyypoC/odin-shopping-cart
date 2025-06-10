@@ -1,6 +1,8 @@
-export async function getProducts() {
+export async function getProducts(controllerSignal) {
   try {
-    const res = await fetch("https://fakestoreapi.com/products");
+    const res = await fetch("https://fakestoreapi.com/products", {
+      signal: controllerSignal,
+    });
 
     if (!res.ok) throw new Error(res.statusText);
 
