@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../../api/getProducts.js";
 import { ProductCard } from "./ProductCard/ProductCard.jsx";
+import styles from "./Shop.module.css";
 
 export function Shop() {
   const [products, setProducts] = useState([]);
@@ -24,5 +25,5 @@ export function Shop() {
     <ProductCard key={product.id} product={product} />
   ));
 
-  return <div>{productList}</div>;
+  return <div className={styles.shopContainer}>{productList}</div>;
 }
