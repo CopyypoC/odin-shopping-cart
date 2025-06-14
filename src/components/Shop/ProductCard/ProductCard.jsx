@@ -1,6 +1,6 @@
 import styles from "./ProductCard.module.css";
 
-export function ProductCard({ product }) {
+export function ProductCard({ product, handleAmountChange }) {
   return (
     <div data-testid="ProductCard" className={styles.cardContainer}>
       <img
@@ -13,11 +13,30 @@ export function ProductCard({ product }) {
       <div className={styles.cardBottom}>
         <p className={styles.price}>{"$" + product.price}</p>
         <div className={styles.amountContainer}>
-          <button className={styles.amountBtn} type="button">
+          <button
+            className={styles.amountBtn}
+            type="button"
+            onClick={() => {
+              if (product.amount === 0) return;
+              const updatedProduct = { ...product };
+              updatedProduct.amount--;
+              handleAmountChange(updatedProduct);
+            }}
+          >
             -
           </button>
-          <p className={styles.amount}>0</p>
-          <button className={styles.amountBtn} type="button">
+          <p data-testid="ProductAmount" className={styles.amount}>
+            {product.amount}
+          </p>
+          <button
+            className={styles.amountBtn}
+            type="button"
+            onClick={() => {
+              const updatedProduct = { ...product };
+              updatedProduct.amount++;
+              handleAmountChange(updatedProduct);
+            }}
+          >
             +
           </button>
         </div>
