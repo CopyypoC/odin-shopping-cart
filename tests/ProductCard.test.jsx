@@ -57,12 +57,12 @@ describe("ProductCard component", () => {
       render(<Shop />);
     });
 
-    let amount = Number(screen.getByTestId("ProductAmount").textContent);
+    let amount = Number(screen.getByTestId("ProductAmount").value);
     const plusBtn = screen.getByRole("button", { name: "+" });
 
     expect(amount).toBe(0);
     await user.click(plusBtn);
-    amount = Number(screen.getByTestId("ProductAmount").textContent);
+    amount = Number(screen.getByTestId("ProductAmount").value);
     expect(amount).toBe(1);
   });
 
@@ -80,20 +80,62 @@ describe("ProductCard component", () => {
       render(<Shop />);
     });
 
-    let amount = Number(screen.getByTestId("ProductAmount").textContent);
+    let amount = Number(screen.getByTestId("ProductAmount").value);
     const plusBtn = screen.getByRole("button", { name: "+" });
     const minusBtn = screen.getByRole("button", { name: "-" });
     await user.click(plusBtn);
 
-    amount = Number(screen.getByTestId("ProductAmount").textContent);
+    amount = Number(screen.getByTestId("ProductAmount").value);
     expect(amount).toBe(1);
 
     await user.click(minusBtn);
-    amount = Number(screen.getByTestId("ProductAmount").textContent);
+    amount = Number(screen.getByTestId("ProductAmount").value);
     expect(amount).toBe(0);
 
     await user.click(minusBtn);
-    amount = Number(screen.getByTestId("ProductAmount").textContent);
+    amount = Number(screen.getByTestId("ProductAmount").value);
+    expect(amount).toBe(0);
+  });
+
+  it("change product amount to 10 on user input of 10", async () => {
+    const user = userEvent.setup();
+
+    globalThis.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve([mockProduct]),
+      })
+    );
+
+    await act(async () => {
+      render(<Shop />);
+    });
+
+    const amountInput = screen.getByTestId("ProductAmount");
+    await user.type(amountInput, "10");
+    let amount = Number(amountInput.value);
+
+    expect(amount).toBe(10);
+  });
+
+  it("change product amount to 0 on user input of negative -1", async () => {
+    const user = userEvent.setup();
+
+    globalThis.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve([mockProduct]),
+      })
+    );
+
+    await act(async () => {
+      render(<Shop />);
+    });
+
+    const amountInput = screen.getByTestId("ProductAmount");
+    await user.type(amountInput, "-1");
+    let amount = Number(parseInt(amountInput.value));
+
     expect(amount).toBe(0);
   });
 });
