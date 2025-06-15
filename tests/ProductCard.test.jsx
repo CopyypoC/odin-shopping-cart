@@ -1,9 +1,13 @@
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { ProductCard } from "../src/components/Shop/ProductCard/ProductCard.jsx";
 import { render, screen } from "@testing-library/react";
 import { Shop } from "../src/components/Shop/Shop.jsx";
 import userEvent from "@testing-library/user-event";
 import { act } from "react";
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 const mockProductList = [
   {
@@ -137,5 +141,30 @@ describe("ProductCard component", () => {
     let amount = Number(parseInt(amountInput.value));
 
     expect(amount).toBe(0);
+  });
+
+  it("add multiple of the same product to cart, 1 + 1 = 2", async () => {
+    const user = userEvent.setup();
+
+    vi.mock("react-router-dom", () => ({
+      ...vi.importActual("react-router-dom"),
+      useOutletContext: () => ({
+        handleAddToCart: () => {},
+      }),
+    }));
+
+    await act(async () => {
+      render(<Shop />);
+    });
+
+    const amountInput = screen.getByTestId("ProductAmount");
+
+    await user.type(amountInput, "1");
+    let amount = Number(parseInt(amountInput.value));
+    expect(amount).toBe(1);
+
+    await user.type(amountInput, "1");
+    amount = Number(parseInt(amountInput.value));
+    expect(amount).toBe(2);
   });
 });
