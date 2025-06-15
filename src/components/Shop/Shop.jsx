@@ -14,7 +14,6 @@ export function Shop() {
         selectedIndex = index;
         newProducts[selectedIndex] = selectedProduct;
         setProducts(newProducts);
-        return;
       }
     });
   };

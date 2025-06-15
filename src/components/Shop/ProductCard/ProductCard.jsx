@@ -1,6 +1,9 @@
+import { useOutletContext } from "react-router-dom";
 import styles from "./ProductCard.module.css";
 
 export function ProductCard({ product, handleAmountChange }) {
+  const { handleAddToCart } = useOutletContext();
+
   return (
     <div data-testid="ProductCard" className={styles.cardContainer}>
       <img
@@ -53,7 +56,16 @@ export function ProductCard({ product, handleAmountChange }) {
             +
           </button>
         </div>
-        <button className={styles.addCart} type="button">
+        <button
+          className={styles.addCart}
+          type="button"
+          onClick={() => {
+            const updatedProduct = { ...product };
+            updatedProduct.amount = 0;
+            handleAddToCart(product);
+            handleAmountChange(updatedProduct);
+          }}
+        >
           Add to cart
         </button>
       </div>
