@@ -10,6 +10,7 @@ export function ProductCard({ product, handleAmountChange }) {
       />
       <p className={styles.category}>{product.category}</p>
       <p className={styles.title}>{product.title}</p>
+
       <div className={styles.cardBottom}>
         <p className={styles.price}>{"$" + product.price}</p>
         <div className={styles.amountContainer}>
@@ -25,9 +26,21 @@ export function ProductCard({ product, handleAmountChange }) {
           >
             -
           </button>
-          <p data-testid="ProductAmount" className={styles.amount}>
-            {product.amount}
-          </p>
+
+          <input
+            type="text"
+            data-testid="ProductAmount"
+            className={styles.amount}
+            value={product.amount}
+            onChange={(e) => {
+              const updatedProduct = { ...product };
+              const inputAmount = e.target.value;
+              if (inputAmount < 0) e.target.value = 0;
+              updatedProduct.amount = e.target.value;
+              handleAmountChange(updatedProduct);
+            }}
+          />
+
           <button
             className={styles.amountBtn}
             type="button"
