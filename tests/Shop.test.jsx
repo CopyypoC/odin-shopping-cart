@@ -66,6 +66,13 @@ describe("Shop component", () => {
       })
     );
 
+    vi.mock("react-router-dom", () => ({
+      ...vi.importActual("react-router-dom"),
+      useOutletContext: () => ({
+        handleAddToCart: () => {},
+      }),
+    }));
+
     await act(async () => {
       render(<Shop />);
     });
