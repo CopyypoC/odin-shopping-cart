@@ -74,6 +74,13 @@
   font-size: 1.3rem;
   font-weight: 500;
   width: 5ch;
+  -moz-appearance: textfield;
+}
+
+.amount::-webkit-outer-spin-button,
+.amount::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .addCart {
