@@ -31,16 +31,25 @@ export function ProductCard({ product, handleAmountChange }) {
           </button>
 
           <input
-            type="text"
+            type="number"
             data-testid="ProductAmount"
             className={styles.amount}
             value={product.amount}
             onChange={(e) => {
               const updatedProduct = { ...product };
-              const inputAmount = e.target.value;
-              if (inputAmount < 0) e.target.value = 0;
-              updatedProduct.amount = e.target.value;
+              let inputAmount = parseInt(e.target.value);
+
+              if (isNaN(inputAmount)) inputAmount = "";
+
+              if (inputAmount < 0) inputAmount = 0;
+
+              updatedProduct.amount = inputAmount;
               handleAmountChange(updatedProduct);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "-") {
+                e.preventDefault();
+              }
             }}
           />
 

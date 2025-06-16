@@ -6,6 +6,8 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
 
   const handleAddToCart = (product) => {
+    if (product.amount === "") return;
+
     const newCartItems = [...cartItems];
     let itemExists = false;
 
