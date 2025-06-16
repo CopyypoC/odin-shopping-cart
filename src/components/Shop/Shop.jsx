@@ -30,7 +30,7 @@ export function Shop() {
     fetchProducts();
 
     return () => {
-      controller.abort();
+      controller.abort("Cancel multiple product fetch");
     };
   }, []);
 
