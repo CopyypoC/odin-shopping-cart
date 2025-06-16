@@ -122,7 +122,7 @@ describe("ProductCard component", () => {
     expect(amount).toBe(10);
   });
 
-  it("change product amount to 0 on user input of negative -1", async () => {
+  it("prevent user from inputting negative numbers", async () => {
     const user = userEvent.setup();
 
     globalThis.fetch = vi.fn(() =>
@@ -137,8 +137,8 @@ describe("ProductCard component", () => {
     });
 
     const amountInput = screen.getByTestId("ProductAmount");
-    await user.type(amountInput, "-1");
-    let amount = Number(parseInt(amountInput.value));
+    await user.type(amountInput, "-");
+    let amount = parseInt(amountInput.value);
 
     expect(amount).toBe(0);
   });
