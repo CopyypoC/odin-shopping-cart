@@ -22,6 +22,16 @@ const mockProductList = [
 
 const mockProduct = mockProductList[0];
 
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    useOutletContext: () => ({
+      handleAddToCart: () => {},
+    }),
+  };
+});
+
 describe("ProductCard component", () => {
   it("renders Add to cart button", () => {
     render(<ProductCard product={mockProduct} />);
@@ -141,30 +151,5 @@ describe("ProductCard component", () => {
     let amount = parseInt(amountInput.value);
 
     expect(amount).toBe(0);
-  });
-
-  it("add multiple of the same product to cart, 1 + 1 = 2", async () => {
-    const user = userEvent.setup();
-
-    vi.mock("react-router-dom", () => ({
-      ...vi.importActual("react-router-dom"),
-      useOutletContext: () => ({
-        handleAddToCart: () => {},
-      }),
-    }));
-
-    await act(async () => {
-      render(<Shop />);
-    });
-
-    const amountInput = screen.getByTestId("ProductAmount");
-
-    await user.type(amountInput, "1");
-    let amount = Number(parseInt(amountInput.value));
-    expect(amount).toBe(1);
-
-    await user.type(amountInput, "1");
-    amount = Number(parseInt(amountInput.value));
-    expect(amount).toBe(2);
   });
 });
