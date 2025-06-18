@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import styles from "./ProductCard.module.css";
+import PropTypes from "prop-types";
 
 export function ProductCard({ product, handleAmountChange }) {
   const { handleAddToCart } = useOutletContext();
@@ -81,3 +82,8 @@ export function ProductCard({ product, handleAmountChange }) {
     </div>
   );
 }
+
+ProductCard.PropTypes = {
+  product: PropTypes.object.isRequired,
+  handleAmountChange: PropTypes.func.isRequired,
+};

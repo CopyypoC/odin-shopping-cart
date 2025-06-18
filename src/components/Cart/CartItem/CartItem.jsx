@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 export function CartItem({ product }) {
   return (
     <div data-testid="CartItem">
@@ -5,3 +7,7 @@ export function CartItem({ product }) {
     </div>
   );
 }
+
+CartItem.PropTypes = {
+  product: PropTypes.object.isRequired,
+};
