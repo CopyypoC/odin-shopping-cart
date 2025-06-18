@@ -4,6 +4,7 @@ export function CartItem({ product }) {
   return (
     <div data-testid="CartItem">
       <p>{product.title}</p>
+      <p>{product.amount}</p>
     </div>
   );
 }
