@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { routes } from "../src/routes/routes.jsx";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { act } from "react";
 
 beforeEach(() => {
   vi.resetModules();
+  vi.resetAllMocks();
 });
 
 const mockProductList = [
@@ -23,7 +23,8 @@ const mockProductList = [
 const mockProduct = mockProductList[0];
 
 describe("Cart component", () => {
-  it("renders empty cart", () => {
+  it("renders empty cart", async () => {
+    const { routes } = await import("../src/routes/routes.jsx");
     const router = createMemoryRouter(routes, {
       initialEntries: ["/cart"],
     });
@@ -33,6 +34,7 @@ describe("Cart component", () => {
   });
 
   it("renders cart item after adding to cart", async () => {
+    const { routes } = await import("../src/routes/routes.jsx");
     const router = createMemoryRouter(routes, {
       initialEntries: ["/shop"],
     });
@@ -84,6 +86,33 @@ describe("Cart component", () => {
 
     expect(checkoutBtn).toBeInTheDocument();
     expect(totalPrice).toBeInTheDocument();
+  });
+
+  it("renders empty state after clicking checkout button", async () => {
+    vi.doMock("react-router-dom", async () => {
+      const actual = await vi.importActual("react-router-dom");
+      return {
+        ...actual,
+        useOutletContext: () => ({
+          cartItems: mockProductList,
+        }),
+      };
+    });
+
+    const { routes } = await import("../src/routes/routes.jsx");
+    const router = createMemoryRouter(routes, {
+      initialEntries: ["/cart"],
+    });
+    const user = userEvent.setup();
+
+    await act(async () => {
+      render(<RouterProvider router={router} />);
+    });
+
+    const checkoutBtn = screen.getByRole("button", { name: /checkout/i });
+
+    await user.click(checkoutBtn);
+    expect(screen.getByText(/empty/i)).toBeInTheDocument();
   });
 });
 
