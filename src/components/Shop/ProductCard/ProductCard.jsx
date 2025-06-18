@@ -83,7 +83,7 @@ export function ProductCard({ product, handleAmountChange }) {
   );
 }
 
-ProductCard.PropTypes = {
+ProductCard.propTypes = {
   product: PropTypes.object.isRequired,
-  handleAmountChange: PropTypes.func.isRequired,
+  handleAmountChange: PropTypes.func,
 };

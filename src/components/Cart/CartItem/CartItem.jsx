@@ -8,6 +8,6 @@ export function CartItem({ product }) {
   );
 }
 
-CartItem.PropTypes = {
+CartItem.propTypes = {
   product: PropTypes.object.isRequired,
 };
