@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { Cart } from "../src/components/Cart/Cart.jsx";
 import { render, screen } from "@testing-library/react";
 import { routes } from "../src/routes/routes.jsx";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
@@ -61,6 +60,30 @@ describe("Cart component", () => {
     const cartItem = screen.getByTestId("CartItem");
 
     expect(cartItem).toBeInTheDocument();
+  });
+
+  it("renders total price and checkout button with item in cart", async () => {
+    vi.doMock("react-router-dom", async () => {
+      const actual = await vi.importActual("react-router-dom");
+      return {
+        ...actual,
+        useOutletContext: () => ({
+          cartItems: mockProductList,
+        }),
+      };
+    });
+
+    const { Cart } = await import("../src/components/Cart/Cart.jsx");
+
+    await act(async () => {
+      render(<Cart />);
+    });
+
+    const checkoutBtn = screen.getByRole("button", { name: /checkout/i });
+    const totalPrice = screen.getByTestId("TotalPrice");
+
+    expect(checkoutBtn).toBeInTheDocument();
+    expect(totalPrice).toBeInTheDocument();
   });
 });
 
