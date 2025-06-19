@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { createMemoryRouter, RouterProvider } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 import { act } from "react";
@@ -22,6 +22,35 @@ const mockProductList = [
 
 const mockProduct = mockProductList[0];
 
+async function addItemToCart() {
+  globalThis.fetch = vi.fn(() =>
+    Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve([mockProduct]),
+    })
+  );
+
+  const { routes } = await import("../src/routes/routes.jsx");
+  const router = createMemoryRouter(routes, {
+    initialEntries: ["/shop"],
+  });
+  const user = userEvent.setup();
+
+  await act(async () => {
+    render(<RouterProvider router={router} />);
+  });
+
+  const cartNav = screen.getByRole("link", { name: /cart/i });
+  const plusAmountBtn = screen.getByRole("button", { name: "+" });
+  const addToCartBtn = screen.getByRole("button", { name: /cart/i });
+
+  await user.click(plusAmountBtn);
+  await user.click(addToCartBtn);
+  await user.click(cartNav);
+
+  return { user };
+}
+
 describe("Cart component", () => {
   it("renders empty cart", async () => {
     const { routes } = await import("../src/routes/routes.jsx");
@@ -34,30 +63,7 @@ describe("Cart component", () => {
   });
 
   it("renders cart item after adding to cart", async () => {
-    const { routes } = await import("../src/routes/routes.jsx");
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/shop"],
-    });
-    const user = userEvent.setup();
-
-    globalThis.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve([mockProduct]),
-      })
-    );
-
-    await act(async () => {
-      render(<RouterProvider router={router} />);
-    });
-
-    const cartNav = screen.getByRole("link", { name: /cart/i });
-    const plusAmountBtn = screen.getByRole("button", { name: "+" });
-    const addToCartBtn = screen.getByRole("button", { name: /cart/i });
-
-    await user.click(plusAmountBtn);
-    await user.click(addToCartBtn);
-    await user.click(cartNav);
+    await addItemToCart();
 
     const cartItem = screen.getByTestId("CartItem");
 
@@ -65,21 +71,7 @@ describe("Cart component", () => {
   });
 
   it("renders total price and checkout button with item in cart", async () => {
-    vi.doMock("react-router-dom", async () => {
-      const actual = await vi.importActual("react-router-dom");
-      return {
-        ...actual,
-        useOutletContext: () => ({
-          cartItems: mockProductList,
-        }),
-      };
-    });
-
-    const { Cart } = await import("../src/components/Cart/Cart.jsx");
-
-    await act(async () => {
-      render(<Cart />);
-    });
+    await addItemToCart();
 
     const checkoutBtn = screen.getByRole("button", { name: /checkout/i });
     const totalPrice = screen.getByTestId("TotalPrice");
@@ -89,36 +81,13 @@ describe("Cart component", () => {
   });
 
   it("renders empty state after clicking checkout button", async () => {
-    vi.doMock("react-router-dom", async () => {
-      const actual = await vi.importActual("react-router-dom");
-      const originalUseOutletContext = actual.useOutletContext;
-
-      return {
-        ...actual,
-        useOutletContext: () => ({
-          ...originalUseOutletContext(),
-          cartItems: mockProductList,
-        }),
-      };
-    });
-
-    const { routes } = await import("../src/routes/routes.jsx");
-    const router = createMemoryRouter(routes, {
-      initialEntries: ["/cart"],
-    });
-    const user = userEvent.setup();
-
-    await act(async () => {
-      render(<RouterProvider router={router} />);
-    });
+    const { user } = await addItemToCart();
 
     const checkoutBtn = screen.getByRole("button", { name: /checkout/i });
     screen.debug(checkoutBtn);
 
-    await act(async () => {
-      user.click(checkoutBtn);
-      expect(screen.getByText(/empty/i)).toBeInTheDocument();
-    });
+    user.click(checkoutBtn);
+    await waitFor(() => expect(screen.getByText(/empty/i)).toBeInTheDocument());
   });
 });
 
