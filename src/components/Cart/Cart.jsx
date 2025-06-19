@@ -2,7 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import { CartItem } from "./CartItem/CartItem.jsx";
 
 export function Cart() {
-  const { cartItems } = useOutletContext();
+  const { cartItems, handleCheckout } = useOutletContext();
   let totalPrice = 0;
 
   const cartItemList = cartItems.map((product) => {
@@ -19,7 +19,14 @@ export function Cart() {
         {cartItems.length > 0 && (
           <>
             <p data-testid="TotalPrice">{totalPrice}</p>
-            <button type="button">Checkout</button>
+            <button
+              type="button"
+              onClick={() => {
+                handleCheckout();
+              }}
+            >
+              Checkout
+            </button>
           </>
         )}
       </div>

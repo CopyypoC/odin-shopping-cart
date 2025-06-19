@@ -5,6 +5,10 @@ import { useState } from "react";
 function App() {
   const [cartItems, setCartItems] = useState([]);
 
+  const handleCheckout = () => {
+    setCartItems([]);
+  };
+
   const handleAddToCart = (product) => {
     if (product.amount === "" || product.amount === 0) return;
 
@@ -31,7 +35,7 @@ function App() {
     <>
       <Navbar />
       <main>
-        <Outlet context={{ handleAddToCart, cartItems }} />
+        <Outlet context={{ handleAddToCart, cartItems, handleCheckout }} />
       </main>
     </>
   );

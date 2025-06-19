@@ -91,9 +91,12 @@ describe("Cart component", () => {
   it("renders empty state after clicking checkout button", async () => {
     vi.doMock("react-router-dom", async () => {
       const actual = await vi.importActual("react-router-dom");
+      const originalUseOutletContext = actual.useOutletContext;
+
       return {
         ...actual,
         useOutletContext: () => ({
+          ...originalUseOutletContext(),
           cartItems: mockProductList,
         }),
       };
@@ -110,9 +113,12 @@ describe("Cart component", () => {
     });
 
     const checkoutBtn = screen.getByRole("button", { name: /checkout/i });
+    screen.debug(checkoutBtn);
 
-    await user.click(checkoutBtn);
-    expect(screen.getByText(/empty/i)).toBeInTheDocument();
+    await act(async () => {
+      user.click(checkoutBtn);
+      expect(screen.getByText(/empty/i)).toBeInTheDocument();
+    });
   });
 });
 
