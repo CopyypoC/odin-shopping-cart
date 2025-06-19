@@ -90,12 +90,3 @@ describe("Cart component", () => {
     await waitFor(() => expect(screen.getByText(/empty/i)).toBeInTheDocument());
   });
 });
-
-// Render Empty cart
-// Render checkout btn
-// Render +/- btn
-// Render amount input number
-// Render remove item btn
-// Check amount logic
-// Check delete logic
-// Check checkout btn logic
