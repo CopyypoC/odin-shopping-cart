@@ -1,10 +1,11 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { CartItem } from "../src/components/Cart/CartItem/CartItem.jsx";
 
 const mockProductList = [
   {
     id: 1,
+    amount: 2,
     title: "title",
     price: 1,
     description: "description",
@@ -24,10 +25,12 @@ describe("CartItem component", () => {
   });
 
   it("renders item content", () => {
-    render(<ProductCard product={mockProduct} />);
+    render(<CartItem product={mockProduct} />);
 
     expect(screen.getByText(mockProduct.title)).toBeInTheDocument();
-    expect(screen.getByText("$" + mockProduct.price)).toBeInTheDocument();
+    expect(
+      screen.getByText("$" + mockProduct.price * mockProduct.amount)
+    ).toBeInTheDocument();
     expect(screen.getByAltText(mockProduct.title)).toBeInTheDocument();
   });
 });
