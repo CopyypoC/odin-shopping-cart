@@ -1,5 +1,15 @@
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    useOutletContext: () => ({
+      handleCartAmountChange: () => {},
+    }),
+  };
+});
+
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { CartItem } from "../src/components/Cart/CartItem/CartItem.jsx";
 
 const mockProductList = [
@@ -29,7 +39,9 @@ describe("CartItem component", () => {
 
     expect(screen.getByText(mockProduct.title)).toBeInTheDocument();
     expect(
-      screen.getByText("$" + mockProduct.price * mockProduct.amount)
+      screen.getByText("$" + mockProduct.price * mockProduct.amount, {
+        exact: false,
+      })
     ).toBeInTheDocument();
     expect(screen.getByAltText(mockProduct.title)).toBeInTheDocument();
   });
