@@ -29,13 +29,32 @@ function App() {
     }
   };
 
+  const handleCartAmountChange = (selectedItem) => {
+    const newCartItems = [...cartItems];
+    let selectedIndex;
+    newCartItems.forEach((product, index) => {
+      if (selectedItem.id === product.id) {
+        selectedIndex = index;
+        newCartItems[selectedIndex] = selectedItem;
+        setCartItems(newCartItems);
+      }
+    });
+  };
+
   console.log(cartItems);
 
   return (
     <>
       <Navbar />
       <main>
-        <Outlet context={{ handleAddToCart, cartItems, handleCheckout }} />
+        <Outlet
+          context={{
+            handleAddToCart,
+            cartItems,
+            handleCheckout,
+            handleCartAmountChange,
+          }}
+        />
       </main>
     </>
   );

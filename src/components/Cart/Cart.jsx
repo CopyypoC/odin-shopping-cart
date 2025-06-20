@@ -10,6 +10,8 @@ export function Cart() {
     return <CartItem product={product} key={product.id} />;
   });
 
+  totalPrice = parseFloat(totalPrice).toFixed(2);
+
   const emptyText = <p>Your shopping cart is empty</p>;
 
   return (
@@ -18,7 +20,7 @@ export function Cart() {
       <div>
         {cartItems.length > 0 && (
           <>
-            <p data-testid="TotalPrice">{totalPrice}</p>
+            <p data-testid="TotalPrice">{"$" + totalPrice}</p>
             <button
               type="button"
               onClick={() => {
