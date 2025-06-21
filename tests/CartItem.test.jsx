@@ -45,4 +45,10 @@ describe("CartItem component", () => {
     ).toBeInTheDocument();
     expect(screen.getByAltText(mockProduct.title)).toBeInTheDocument();
   });
+
+  it("renders delete item button", () => {
+    render(<CartItem product={mockProduct} />);
+
+    expect(screen.getByRole("button", { name: /delete/i })).toBeInTheDocument();
+  });
 });
