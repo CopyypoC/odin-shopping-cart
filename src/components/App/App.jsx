@@ -41,6 +41,14 @@ function App() {
     });
   };
 
+  const handleRemoveCartItem = (itemToRemove) => {
+    const newCartItems = cartItems.filter((item) => {
+      if (itemToRemove.id !== item.id) return item;
+    });
+
+    setCartItems(newCartItems);
+  };
+
   console.log(cartItems);
 
   return (
@@ -53,6 +61,7 @@ function App() {
             cartItems,
             handleCheckout,
             handleCartAmountChange,
+            handleRemoveCartItem,
           }}
         />
       </main>

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useOutletContext } from "react-router-dom";
 
 export function CartItem({ product }) {
-  const { handleCartAmountChange } = useOutletContext();
+  const { handleCartAmountChange, handleRemoveCartItem } = useOutletContext();
   const price = parseFloat(product.price * product.amount).toFixed(2);
 
   return (
@@ -56,6 +56,14 @@ export function CartItem({ product }) {
           +
         </button>
       </div>
+      <button
+        type="button"
+        onClick={() => {
+          handleRemoveCartItem(product);
+        }}
+      >
+        Delete
+      </button>
     </div>
   );
 }
