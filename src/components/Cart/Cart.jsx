@@ -1,5 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { CartItem } from "./CartItem/CartItem.jsx";
+import styles from "./Cart.module.css";
 
 export function Cart() {
   const { cartItems, handleCheckout } = useOutletContext();
@@ -12,7 +13,9 @@ export function Cart() {
 
   totalPrice = parseFloat(totalPrice).toFixed(2);
 
-  const emptyText = <p>Your shopping cart is empty</p>;
+  const emptyText = (
+    <p className={styles.emptyText}>Your shopping cart is empty</p>
+  );
 
   return (
     <div data-testid="Cart">
