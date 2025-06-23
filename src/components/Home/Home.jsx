@@ -4,7 +4,7 @@ export function Home() {
   return (
     <div className={styles.homeContainer}>
       <img
-        src="/public/hero.jpg"
+        src="/hero.jpg"
         alt="Two fashionable purses"
         className={styles.hero}
       />
