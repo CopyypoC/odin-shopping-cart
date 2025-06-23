@@ -20,12 +20,16 @@ export function Cart() {
   return (
     <div data-testid="Cart">
       {cartItems.length > 0 ? cartItemList : emptyText}
-      <div>
+      <div className={styles.checkoutContainer}>
         {cartItems.length > 0 && (
           <>
-            <p data-testid="TotalPrice">{"$" + totalPrice}</p>
+            <p className={styles.total}>Total:</p>
+            <p className={styles.totalPrice} data-testid="TotalPrice">
+              {"$" + totalPrice}
+            </p>
             <button
               type="button"
+              className={styles.checkoutBtn}
               onClick={() => {
                 handleCheckout();
               }}

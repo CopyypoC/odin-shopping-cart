@@ -5,3 +5,35 @@
   font-weight: 700;
   color: var(--font-clr);
 }
+
+.checkoutContainer {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.total {
+  color: var(--font-clr);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.totalPrice {
+  composes: total;
+  font-weight: 600;
+}
+
+.checkoutBtn {
+  border: 0;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background-color: var(--font-clr);
+  color: var(--secondary-clr);
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.checkoutBtn:hover {
+  cursor: pointer;
+}
